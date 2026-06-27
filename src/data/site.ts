@@ -3,7 +3,7 @@ export const site = {
   title: "VIA - Notes on books, places, photographs, and quiet progress",
   description: "A minimalist personal blog for essays, reading notes, photography, hiking, and travel.",
   author: "VIA",
-  url: "https://naimul.net",
+  url: "https://candid-buttercream-83376d.netlify.app/",
   nav: [
     {
         label: "Home",

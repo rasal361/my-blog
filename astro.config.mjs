@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://naimul.net',
+  site: 'https://candid-buttercream-83376d.netlify.app/',
   integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {
