@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { getAllPosts, getFeaturedPosts, formatDate } from '../lib/content';
+import { site } from '../data/site';
+
+const posts = await getAllPosts();
+const featuredPosts = await getFeaturedPosts();
+const latestPosts = posts.slice(0, 4);
+const aboutLabel = `About ${site.author || site.name}`;
+---
+
+<BaseLayout>
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Personal journal</p>
+      <h1>Notes for a slower, better observed life.</h1>
+      <p class="lede">
+        Essays on books, photography, quiet work, mountain paths, and the small decisions that shape a life.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/blog/">Read the blog</a>
+        <a class="button secondary" href="/about/">{aboutLabel}</a>
+      </div>
+    </div>
+    <figure class="hero-media">
+      <img
+        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=82"
+        alt="A warm natural landscape with hills and soft evening light"
+      />
+      <figcaption class="hero-media-caption">
+        <span>Field notes</span>
+        <span>Books, walks, frames</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="container section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Featured</p>
+        <h2>Start here</h2>
+      </div>
+      <a class="button secondary" href="/blog/">All posts</a>
+    </div>
+    <div class="post-grid">
+      {(featuredPosts.length ? featuredPosts : posts).slice(0, 3).map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+
+  <section class="feature-band">
+    <div class="container section split">
+      <div>
+        <p class="eyebrow">Journal</p>
+        <h2 class="page-title">Recent entries</h2>
+      </div>
+      <div class="journal-list">
+        {latestPosts.map((post) => (
+          <a class="journal-link" href={`/blog/${post.id}/`}>
+            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+            <h3>{post.data.title}</h3>
+            <span>Read</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+</BaseLayout>

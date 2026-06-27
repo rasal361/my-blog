@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getAllPosts } from '../lib/content';
+
+const posts = (await getAllPosts()).filter((post) =>
+  ['hiking', 'travel'].some((tag) => post.data.tags.map((item) => item.toLowerCase()).includes(tag))
+);
+---
+
+<BaseLayout title="Hiking & Traveling - naimul.net" description="Trail notes, travel logs, and outdoor observations.">
+  <section class="container page-hero">
+    <p class="eyebrow">Hiking & Traveling</p>
+    <h1 class="page-title">Footnotes from the road.</h1>
+    <p class="lede">
+      Trail reports, city walks, practical notes, and the kind of memory that only appears after moving through a place.
+    </p>
+  </section>
+
+  <section class="container section-tight">
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

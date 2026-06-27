@@ -1,0 +1,76 @@
+---
+import { site } from '../data/site';
+
+const currentPath = Astro.url.pathname;
+
+function isCurrent(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} home`}>{site.name}</a>
+    <nav class="nav" aria-label="Primary navigation">
+      {site.nav.map((item) => (
+        <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <a class="icon-button" href="/search/" aria-label="Search">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </a>
+      <button class="icon-button" data-theme-toggle aria-label="Toggle color theme" type="button">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3a6 6 0 0 0 9 7.7 9 9 0 1 1-9-7.7Z"></path>
+        </svg>
+      </button>
+      <button class="icon-button menu-button" data-menu-toggle aria-label="Open navigation" type="button" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav data-open="false" aria-label="Mobile navigation">
+    {site.nav.map((item) => (
+      <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const themeButton = document.querySelector('[data-theme-toggle]');
+  const menuButton = document.querySelector('[data-menu-toggle]');
+  const mobileNav = document.querySelector('[data-mobile-nav]');
+
+  themeButton?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = nextTheme;
+    localStorage.setItem('theme', nextTheme);
+  });
+
+  menuButton?.addEventListener('click', () => {
+    const isOpen = mobileNav?.getAttribute('data-open') === 'true';
+    mobileNav?.setAttribute('data-open', String(!isOpen));
+    menuButton.setAttribute('aria-expanded', String(!isOpen));
+    document.body.classList.toggle('menu-open', !isOpen);
+  });
+
+  mobileNav?.addEventListener('click', () => {
+    mobileNav.setAttribute('data-open', 'false');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  });
+</script>

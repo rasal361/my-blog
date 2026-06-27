@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search - naimul.net" description="Search the naimul.net archive.">
+  <section class="container page-hero">
+    <p class="eyebrow">Search</p>
+    <h1 class="page-title">Find a note.</h1>
+    <p class="lede">Search across essays, reading notes, travel logs, and photo entries.</p>
+  </section>
+
+  <section class="container section-tight">
+    <div class="search-panel">
+      <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+      <div id="search"></div>
+      <script is:inline src="/pagefind/pagefind-ui.js"></script>
+      <script is:inline>
+        window.addEventListener('DOMContentLoaded', () => {
+          if (window.PagefindUI) {
+            new window.PagefindUI({
+              element: '#search',
+              showSubResults: true,
+              excerptLength: 24
+            });
+          }
+        });
+      </script>
+    </div>
+  </section>
+</BaseLayout>

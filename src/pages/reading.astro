@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { books } from '../data/books';
+---
+
+<BaseLayout title="Reading - naimul.net" description="Books, reading notes, and small margins from the bookshelf.">
+  <section class="container page-hero">
+    <p class="eyebrow">Reading</p>
+    <h1 class="page-title">Books in the margin.</h1>
+    <p class="lede">
+      A small shelf of books, notes, unfinished thoughts, and ideas worth returning to.
+    </p>
+  </section>
+
+  <section class="container section-tight">
+    <div class="book-list">
+      {books.map((book) => (
+        <article class="book-item">
+          <div>
+            <h2>{book.title}</h2>
+            <p>{book.author}</p>
+            <p>{book.note}</p>
+          </div>
+          <span class="book-status">{book.status}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllPosts, getAllTags, normalizeTag } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map(({ tag }) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const posts = (await getAllPosts()).filter((post) =>
+  post.data.tags.some((item) => normalizeTag(item) === tag)
+);
+---
+
+<BaseLayout title={`${tag} - naimul.net`} description={`Posts tagged ${tag}.`}>
+  <section class="container page-hero">
+    <p class="eyebrow">Tag</p>
+    <h1 class="page-title">{tag}</h1>
+    <p class="lede">{posts.length} {posts.length === 1 ? 'entry' : 'entries'} collected here.</p>
+  </section>
+
+  <section class="container section-tight">
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

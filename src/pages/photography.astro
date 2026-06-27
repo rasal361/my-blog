@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos } from '../data/photos';
+---
+
+<BaseLayout title="Photography - naimul.net" description="A visual journal of light, landscape, and quiet details.">
+  <section class="container page-hero">
+    <p class="eyebrow">Photography</p>
+    <h1 class="page-title">Frames from ordinary days.</h1>
+    <p class="lede">
+      A visual notebook for landscapes, rooms, roads, and quiet details that made me stop.
+    </p>
+  </section>
+
+  <section class="container section-tight">
+    <div class="gallery">
+      {photos.map((photo) => (
+        <figure class="photo-tile">
+          <img src={photo.image} alt={photo.alt} loading="lazy" />
+          <figcaption>
+            <span>{photo.title}</span>
+            <span>{photo.location}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

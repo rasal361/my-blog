@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllPosts, getAllTags } from '../../lib/content';
+
+const posts = await getAllPosts();
+const tags = await getAllTags();
+---
+
+<BaseLayout title="Blog - Via.net" description="Essays, field notes, book notes, photography, hiking, and travel.">
+  <section class="container page-hero">
+    <p class="eyebrow">Archive</p>
+    <h1 class="page-title">All writing</h1>
+    <p class="lede">Essays, notes, observations, and small records from the road.</p>
+    <div class="tag-row" style="margin-top: 24px;">
+      {tags.map(({ tag, count }) => (
+        <a class="tag" href={`/tags/${tag}/`}>{tag} ({count})</a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container section-tight">
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import type { BlogPost } from '../lib/content';
+import { formatDate, readingTime } from '../lib/content';
+
+type Props = {
+  post: BlogPost;
+};
+
+const { post } = Astro.props;
+const minutes = readingTime(post.body ?? '');
+---
+
+<a class="post-card" href={`/blog/${post.id}/`}>
+  <img src={post.data.image} alt={post.data.imageAlt} loading="lazy" />
+  <div class="post-card-body">
+    <div class="post-card-kicker">
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+      <span>{minutes} min read</span>
+      <span>{post.data.category}</span>
+    </div>
+    <h3>{post.data.title}</h3>
+    <p>{post.data.description}</p>
+    <div class="tag-row" aria-label="Post tags">
+      {post.data.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</a>
