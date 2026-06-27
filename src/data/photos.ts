@@ -1,5 +1,11 @@
 export const photos = [
   {
+    "title": "CR7",
+    "location": "CR7",
+    "image": "/uploads/6ffdf72c19a26ffcad38bad85eda0540-1782562369046.jpg",
+    "alt": "CR7 image"
+  },
+  {
     "title": "landscape",
     "location": "landscape",
     "image": "/uploads/132555320-400138768069693-3674247727031303824-n-1782552222737.jpg",
