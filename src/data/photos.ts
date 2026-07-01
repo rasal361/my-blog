@@ -1,11 +1,5 @@
 export const photos = [
   {
-    "title": "Burj khalifa",
-    "location": "Burj khalifa",
-    "image": "/uploads/burj-khalifa-vertical-1782908038203.jpg",
-    "alt": "Burj khalifa image"
-  },
-  {
     "title": "CR7",
     "location": "CR7",
     "image": "/uploads/6ffdf72c19a26ffcad38bad85eda0540-1782562369046.jpg",
